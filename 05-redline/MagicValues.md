@@ -43,8 +43,8 @@ boolean countains(String[] array, String target) {
     boolean found = (target != null)
     int i = 0;
     while (i < array.length && !found) {
-        if (target.equals(array[i])) {
-            found = true;
+        if (target.equals(array[i])) {  // *** These two statements 
+            found = true;               // *** can be combined in one
         }
         i++;
     }
@@ -62,12 +62,25 @@ boolean countains(String[] array, String target) {
     boolean found = (target != null)
     int i = 0;
     while (i < array.length && !found) {
-        found = (target.equals(array[i]));
-        i++;
+        found = (target.equals(array[i])); // *** Combined statements
+        i++;      
     }
     return found;
 }
 ```
+
+By the way, the code above can be simplified a bit more by combining the the two lines:
+```java
+found = (target.equals(array[i]));
+i++;      
+```
+into a single statement:
+
+```java
+found = (target.equals(array[i++]));
+```
+
+## Reasons to avoid magic values
 
 **Magic values lack of context.**  Hard-coded literal values have no obvious meaning by themselves. For example, seeing a number like 42 in the middle of a program doesn’t convey a purpose. The code becomes difficult to understand and maintain.
 
@@ -75,6 +88,6 @@ boolean countains(String[] array, String target) {
 
 **Magic numbers make code less readable.** Surely we can write comments explaining what the magic value is but that adds clutter to the code. Sometimes it is best to replace comments with a thoughtfully named variable or constant.
 
-**Magic values make debugging more difficulty.** It is not always clear why a particular value was used in a program or how it relates to the overall logic of the program. This slows down debugging often to the point that it renders it ineffective.
+**Magic values make debugging more difficult.** It is not always clear why a particular value was used in a program or how it relates to the overall logic of the program. This slows down debugging often to the point that it renders it ineffective.
 
 **Magic values violate the DRY Principle.** In their book [*The Pragmatic Programmer*](https://en.wikipedia.org/wiki/The_Pragmatic_Programmer),  Andy Hunt and Dave Thomas suggest that "every piece of knowledge must have a single, unambiguous, authoritative representation within a system". Use of magic values violates the "Don't Repeat Yourself" (DRY) principle. Defining the number as a constant (or a variable) in one place and using it throughout the code fulfills the requirement for *single, unambiguous, authoritative representation* and promotes consistency and clarity.
